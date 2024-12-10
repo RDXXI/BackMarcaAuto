@@ -1,0 +1,20 @@
+﻿version: '3.9'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: TestDb
+    ports:
+      - "5432:5432"
+
+  api:
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      ConnectionStrings__DefaultConnection: Host=db;Database=TestDb;Username=postgres;Password=postgresql
